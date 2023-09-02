@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/cashier/static/css/main.a2761241.css",
+    "main.js": "/cashier/static/js/main.22a8f550.js",
+    "static/js/496.2801a1e2.chunk.js": "/cashier/static/js/496.2801a1e2.chunk.js",
+    "index.html": "/cashier/index.html",
+    "main.a2761241.css.map": "/cashier/static/css/main.a2761241.css.map",
+    "main.22a8f550.js.map": "/cashier/static/js/main.22a8f550.js.map",
+    "496.2801a1e2.chunk.js.map": "/cashier/static/js/496.2801a1e2.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a2761241.css",
+    "static/js/main.22a8f550.js"
+  ]
+}
