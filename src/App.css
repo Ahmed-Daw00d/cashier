@@ -7,6 +7,11 @@
 .container,
 .container2 {
   margin: 15px;
+  /* background-image:url("../public/Images/"); */
+}
+.container{
+  padding-top: 10px;
+  border: 1px solid red;
 }
 
 .App {
@@ -34,7 +39,7 @@ input {
   width: 50%;
 }
 
-form > div > button {
+form > .count > button {
   font-size: large;
   border-style: none;
   height: 31px;
@@ -57,14 +62,15 @@ select{
 #total {
   text-align: center;
 }
-.price{
+.price {
   display: flex;
+  flex-direction: row;
   justify-content:center;
 }
 .price>button{
   margin-left: 50px;}
 
-form > button,
+form > .ptnPill>button,
 .btnPrint {
   padding: 10px;
   background: linear-gradient(0.25turn, rgb(28, 159, 247), rgb(94, 0, 128));
@@ -75,7 +81,7 @@ form > button,
 table {
   margin: auto;
   border-collapse: collapse;
-  width: 90%;
+  width: 50%;
 }
 th,
 td {

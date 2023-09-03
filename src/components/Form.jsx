@@ -11,12 +11,20 @@ function Form() {
   //display and none display
   var [displayBtn, setDisplayBtn] = useState("none");
   var [displayPrice, setDisplayPrice] = useState("none");
-//pill
+  //pill
   var [products, setProducts] = useState([]);
   var [totalBill, setTotalBill] = useState(0);
   //product and price product
-  var pizza = ["pizza", "pizza2", "pizza3"];
-  var pizzaPrice = { pizza: 5, pizza2: 2, pizza3: 3 };
+  var pizza = ["pizza1", "pizza2", "pizza3"];
+  var drink = ["drink1", "drink2", "drink3"];
+  var pizzaPrice = {
+    pizza1: 5,
+    pizza2: 2,
+    pizza3: 3,
+    drink1: 5,
+    drink2: 2,
+    drink3: 3,
+  };
   //push for firebase
   const handlePushData = () => {
     addDoc(collection(db, "AllOrders"), {
@@ -98,7 +106,7 @@ function Form() {
           {/* name */}
           <div>
             {/* choice product */}
-            <label htmlFor="nameProduct">product</label>
+            <label htmlFor="nameProduct">Prodotto</label>
             <br />
             <select
               required
@@ -109,9 +117,16 @@ function Form() {
                 e.key === "Enter" && e.preventDefault();
               }}
             >
-              <option>select product</option>
-              <optgroup label="eat">
+              <option>Seleziona Il Prodotto</option>
+              <optgroup label="pizza🍕">
                 {pizza.map((p) => (
+                  <option key={p} value={p}>
+                    {p}
+                  </option>
+                ))}
+              </optgroup>
+              <optgroup label="Bevande 🍻">
+                {drink.map((p) => (
                   <option key={p} value={p}>
                     {p}
                   </option>
@@ -137,16 +152,45 @@ function Form() {
 
           {/* end name */}
 
+          {/* count */}
+          <div className="count">
+            <label htmlFor="count">Quantità</label>
+            <br />
+            <button type="button" onClick={countMines}>
+              -
+            </button>
+            <input
+              type="number"
+              id="count"
+              placeholder="enter count"
+              readOnly
+              value={count}
+              onKeyDown={(e) => {
+                e.key === "Enter" && e.preventDefault();
+              }}
+            />
+            <button type="button" onClick={countPlus}>
+              +
+            </button>
+          </div>
+          <br />
+          {/* end count */}
           {/* price */}
 
-          <div>
-            
-          <label htmlFor="price">price</label>
           <div className="price">
-            <p id="price">{price}£</p>
-            <button type="button" onClick={()=>{displayPrice==="none"?setDisplayPrice("inline"):setDisplayPrice("none")}} >Altri prezzi</button>
-            
-            <input 
+            {/* <label htmlFor="price">Prezzo</label> */}
+            <p>Prezzo: {price}£</p>
+            <button
+              type="button"
+              onClick={() => {
+                displayPrice === "none"
+                  ? setDisplayPrice("inline")
+                  : setDisplayPrice("none");
+              }}
+            >
+              Altri prezzo
+            </button>
+            <input
               style={{ display: displayPrice }}
               type="number"
               id="price"
@@ -161,100 +205,80 @@ function Form() {
                 e.key === "Enter" && e.preventDefault();
               }}
               value={price}
-            /></div>
+            />
           </div>
 
           {/* end price */}
 
-          {/* count */}
-          <div>
-            <label htmlFor="count">count</label>
-            <br />
-            <button type="button" onClick={countMines}>
-              -
-            </button>
-            <input
-              type="number"
-              id="count"
-              placeholder="enter count"
-              readOnly
-              value={count}
-              onKeyDown={(e) => { e.key === 'Enter' && e.preventDefault(); }}
-            />
-            <button type="button" onClick={countPlus}>
-              +
-            </button>
-          </div>
-
-          {/* end count */}
-
           {/* total */}
 
           <div>
-            <label htmlFor="total">total price</label>
             <br />
-            <input
-              type="total"
-              id="total"
-              placeholder="total price"
-              value={total}
-              onKeyDown={(e) => { e.key === 'Enter' && e.preventDefault(); }}
-            />
+            <p>Prezzo Pieno: {total}</p>
+            <br />
           </div>
 
           {/*end total */}
           {/* Add to bill */}
-          <button
-            type="button"
-            onClick={() => {
-              totalHandel();
-              submitHandel();
-            }}
-          >
-            Add to bill
-          </button>
-          {/* submitBtn */}
-          <button
-            style={{ display: displayBtn }}
-            onClick={() => {
-              sortData(name, price, count, total);
-              noneSubmitHandel();
-            }}
-            type="submit"
-          >
-            submit
-          </button>
+          <div className="ptnPill">
+            <button
+              type="button"
+              onClick={() => {
+                totalHandel();
+                submitHandel();
+              }}
+            >
+              Aggiungi alla fattura
+            </button>
+            {/* submitBtn */}
+            <button
+              style={{ display: displayBtn }}
+              onClick={() => {
+                sortData(name, price, count, total);
+                noneSubmitHandel();
+              }}
+              type="submit"
+            >
+              per essere sicuro 🤔
+            </button>
+          </div>
         </form>
       </section>
       {/* Bill */}
       <section className="container2">
         <div id="print">
           <table>
-            <tr>
-              <th>product</th>
-              <th>price</th>
-              <th>amount</th>
-              <th>total</th>
-            </tr>
-            {products.map((p) => (
-              <Products
-                key={Math.random()}
-                name={p.Name}
-                price={p.Price}
-                total={p.Total}
-                count={p.Count}
-              />
-            ))}
+            <thead>
+              <tr>
+                <th>Prodotto</th>
+                <th>Prezzo</th>
+                <th>Quantità</th>
+                <th>Totale</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {products.map((p) => (
+                <Products
+                  key={Math.random()}
+                  name={p.Name}
+                  price={p.Price}
+                  total={p.Total}
+                  count={p.Count}
+                />
+              ))}
+            </tbody>
           </table>
           <div className="TotalBill">
-            <h3>TOTAl</h3> <span>{totalBill}€</span>
+            <h3>Conto-Totale</h3> <span>{totalBill}€</span>
           </div>
+          <p>😊Grazie per aver visitato il ristorante😊</p>
         </div>
 
         <br />
 
         {products.length < 1 ? (
-          "Bill"
+          "Freddo"
         ) : (
           <button
             className="btnPrint"
@@ -264,7 +288,7 @@ function Form() {
               // window.location.reload();
             }}
           >
-            print
+            Stampa la fattura
           </button>
         )}
       </section>
