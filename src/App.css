@@ -6,12 +6,13 @@
 
 .container,
 .container2 {
-  margin: 15px;
+  padding: 15px;
   /* background-image:url("../public/Images/"); */
 }
 .container{
   padding-top: 10px;
   border: 1px solid red;
+  
 }
 
 .App {
@@ -59,7 +60,7 @@ select{
   width: 35%;
 }
 #price,
-#total {
+#total,#tarbiza {
   text-align: center;
 }
 .price {

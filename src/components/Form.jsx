@@ -8,6 +8,7 @@ function Form() {
   var [price, setPrice] = useState(0);
   var [count, setCount] = useState(1);
   var [total, setTotal] = useState(0);
+  var [tarbiza, setTarbiza] = useState();
   //display and none display
   var [displayBtn, setDisplayBtn] = useState("none");
   var [displayPrice, setDisplayPrice] = useState("none");
@@ -28,6 +29,7 @@ function Form() {
   //push for firebase
   const handlePushData = () => {
     addDoc(collection(db, "AllOrders"), {
+      tarbiza: tarbiza,
       products: products,
       totalBill: totalBill,
       date: new Date().toLocaleString(),
@@ -91,6 +93,7 @@ function Form() {
     setName(e.target.value);
     setPrice(pizzaPrice[e.target.value]);
     setDisplayBtn("none");
+    setCount(1);
   };
 
   return (
@@ -103,9 +106,24 @@ function Form() {
             totals();
           }}
         >
-          {/* name */}
+          {/* tarbiza */}
           <div>
-            {/* choice product */}
+            <label htmlFor="tarbiza">Tabella</label>
+            <input
+              type="text"
+              name="tarbiza"
+              id="tarbiza"
+              placeholder="Numero Tabella"
+              onChange={(e) => {
+                setTarbiza(e.target.value);
+              }}
+              onKeyDown={(e) => {
+                e.key === "Enter" && e.preventDefault();
+              }}
+            />
+          </div>
+          {/* choice product */}
+          <div>
             <label htmlFor="nameProduct">Prodotto</label>
             <br />
             <select
@@ -150,7 +168,7 @@ function Form() {
             /> */}
           </div>
 
-          {/* end name */}
+          {/* end choice product */}
 
           {/* count */}
           <div className="count">
@@ -247,6 +265,7 @@ function Form() {
       {/* Bill */}
       <section className="container2">
         <div id="print">
+          <h2>Tabella: {tarbiza}</h2>
           <table>
             <thead>
               <tr>
